@@ -21,7 +21,7 @@ async function sortearPagina(pdfUrl) {
 }
 
 // URL do arquivo PDF
-const pdfUrl = '/pessoas.pdf';
+const pdfUrl = '/PESSOAS.pdf';
 
 // Chama a função para sortear uma página
 sortearPagina(pdfUrl).then(pagina => {
