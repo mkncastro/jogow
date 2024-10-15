@@ -3,26 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteio de Carta</title>
+    <title>Sorteio de Página de PDF</title>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             background-color: #f0f0f0;
         }
-        .card {
-            font-size: 2em;
-            padding: 20px;
-            border: 2px solid #000;
-            border-radius: 10px;
-            background-color: #fff;
-            margin-bottom: 20px;
+        canvas {
+            border: 1px solid black;
         }
         button {
+            margin-top: 20px;
             padding: 10px 20px;
             font-size: 1em;
             cursor: pointer;
@@ -37,24 +33,35 @@
     </style>
 </head>
 <body>
-    <div class="card" id="card"></div>
-    <button onclick="drawCard()">Sortear Nova Carta</button>
+    <canvas id="pdf-canvas"></canvas>
+    <button onclick="drawRandomPage()">Sortear Página</button>
 
     <script>
-        function getRandomCard() {
-            const suits = ['♠', '♥', '♦', '♣'];
-            const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-            const randomSuit = suits[Math.floor(Math.random() * suits.length)];
-            const randomValue = values[Math.floor(Math.random() * values.length)];
-            return `${randomValue}${randomSuit}`;
-        }
+        const url = 'mkncastro/jogow/PESSOAS.pdf';
+        let pdfDoc = null;
+        let canvas = document.getElementById('pdf-canvas');
+        let ctx = canvas.getContext('2d');
 
-        function drawCard() {
-            document.getElementById('card').innerText = getRandomCard();
-        }
+        pdfjsLib.getDocument(url).promise.then(pdf => {
+            pdfDoc = pdf;
+            drawRandomPage();
+        });
 
-        // Sorteia uma carta ao carregar a página
-        drawCard();
+        function drawRandomPage() {
+            if (!pdfDoc) return;
+            const pageNumber = Math.floor(Math.random() * pdfDoc.numPages) + 1;
+            pdfDoc.getPage(pageNumber).then(page => {
+                const viewport = page.getViewport({ scale: 1.5 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                page.render(renderContext);
+            });
+        }
     </script>
 </body>
 </html>
