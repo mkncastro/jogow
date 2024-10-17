@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteio de Página de PDF</title>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <title>Sortear Carta de Pessoas</title>
+</head>
     <style>
         body {
             display: flex;
@@ -31,10 +31,13 @@
             background-color: #0056b3;
         }
     </style>
-</head>
 <body>
     <canvas id="pdf-canvas"></canvas>
     <button onclick="drawRandomPage()">Sortear Carta de Pessoas</button>
+    
+
+    <!-- Incluindo a biblioteca PDF.js -->
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 
     <script>
         const url = 'PESSOAS.pdf';
@@ -42,26 +45,40 @@
         let canvas = document.getElementById('pdf-canvas');
         let ctx = canvas.getContext('2d');
 
+        // Carregando o PDF
         pdfjsLib.getDocument(url).promise.then(pdf => {
             pdfDoc = pdf;
             drawRandomPage();
+        }).catch(err => {
+            console.error('Erro ao carregar o PDF: ', err);
         });
 
         function drawRandomPage() {
             if (!pdfDoc) return;
+
+            // Escolhendo uma página aleatória
             const pageNumber = Math.floor(Math.random() * pdfDoc.numPages) + 1;
+
+            // Obtendo a página
             pdfDoc.getPage(pageNumber).then(page => {
-                const viewport = page.getViewport({ scale: 1.5 });
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale: scale });
+
+                // Ajustando o canvas ao tamanho da página
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
 
+                // Renderizando a página no canvas
                 const renderContext = {
                     canvasContext: ctx,
                     viewport: viewport
                 };
                 page.render(renderContext);
+            }).catch(err => {
+                console.error('Erro ao renderizar a página: ', err);
             });
         }
     </script>
 </body>
 </html>
+
