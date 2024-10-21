@@ -11,134 +11,70 @@
 <body>
 <picture><img class="icon" src="jogow.png"></picture>
 
-
     <h1>Baralho de Dicas</h1>
-    <button id="randomPageBtn">Sortear Carta</button>
+    <button id="randomPageBtn1">Sortear Carta</button>
     <p>Descubra quem é a pessoa com uma, duas ou três dicas</p>
-    <canvas id="pdfCanvas"></canvas>
+    <canvas id="pdfCanvas1"></canvas>
     <br><hr>
-  
+
+    <h1>Baralho para Mímica</h1>
+    <button id="randomPageBtn2">Sortear Carta</button>
+    <p>Descubra o que tem na Bíblia por meio de mímica</p>
+    <canvas id="pdfCanvas2"></canvas>
+    <br><hr>
+
+    <h1>Baralho Bíblico</h1>
+    <button id="randomPageBtn3">Sortear Carta</button>
+    <p>Acerte qual é o versículo ou livro da Bíblia</p>
+    <canvas id="pdfCanvas3"></canvas>
+    <br><hr>
+
     <script>
-        const url = 'PESSOAS.pdf'; // URL do PDF
-        let pdfDoc = null;
-        const canvas = document.getElementById('pdfCanvas');
-        const ctx = canvas.getContext('2d');
+        // Função para carregar e sortear página aleatória de um PDF
+        function loadAndRandomPage(pdfUrl, canvasId) {
+            let pdfDoc = null;
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
 
-        // Carregar o PDF
-        pdfjsLib.getDocument(url).promise.then(function (pdf) {
-            pdfDoc = pdf;
-        });
+            // Carregar o PDF
+            pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+                pdfDoc = pdf;
+            });
 
-        // Função para sortear uma página aleatória
-        function randomPage() {
-            if (pdfDoc) {
-                const totalPages = pdfDoc.numPages;
-                const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
+            // Função para sortear uma página aleatória
+            function randomPage() {
+                if (pdfDoc) {
+                    const totalPages = pdfDoc.numPages;
+                    const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
 
-                // Renderizar a página sorteada
-                pdfDoc.getPage(randomPageNumber).then(function (page) {
-                    const viewport = page.getViewport({ scale: 1.5 });
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
+                    // Renderizar a página sorteada
+                    pdfDoc.getPage(randomPageNumber).then(function (page) {
+                        const viewport = page.getViewport({ scale: 1.5 });
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
 
-                    const renderContext = {
-                        canvasContext: ctx,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                });
+                        const renderContext = {
+                            canvasContext: ctx,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+                    });
+                }
             }
+
+            return randomPage;
         }
 
-        // Botão de sorteio
-        document.getElementById('randomPageBtn').addEventListener('click', randomPage);
+        // Funções específicas para cada PDF
+        const randomPage1 = loadAndRandomPage('PESSOAS.pdf', 'pdfCanvas1');
+        const randomPage2 = loadAndRandomPage('MIMICA.pdf', 'pdfCanvas2');
+        const randomPage3 = loadAndRandomPage('BIBLIA.pdf', 'pdfCanvas3');
+
+        // Botões de sorteio
+        document.getElementById('randomPageBtn1').addEventListener('click', randomPage1);
+        document.getElementById('randomPageBtn2').addEventListener('click', randomPage2);
+        document.getElementById('randomPageBtn3').addEventListener('click', randomPage3);
     </script>
-
-<h1>Baralho para Mímica</h1>
-<button id="randomPageBtn2">Sortear Carta</button>
-<p>Descubra o que tem na Bíblia por meio de mímica</p>
-<canvas id="pdfCanvas"></canvas>
-<br><hr>
-
-<script>
-    const url2 = 'MIMICA.pdf'; // URL do PDF
-    let pdfDoc2 = null;
-    const canvas = document.getElementById('pdfCanvas');
-    const ctx = canvas2.getContext('2d');
-
-    // Carregar o PDF
-    pdfjsLib.getDocument(url2).promise.then(function (pdf) {
-        pdfDoc2 = pdf;
-    });
-
-    // Função para sortear uma página aleatória
-    function randomPage() {
-        if (pdfDoc2) {
-            const totalPages = pdfDoc2.numPages;
-            const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
-
-            // Renderizar a página sorteada
-            pdfDoc2.getPage(randomPageNumber).then(function (page) {
-                const viewport = page.getViewport({ scale: 1.5 });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                const renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
-                page.render(renderContext);
-            });
-        }
-    }
-
-    // Botão de sorteio
-    document.getElementById('randomPageBtn2').addEventListener('click', randomPage);
-</script>
-
-
-<h1>Baralho Bíblico</h1>
-<button id="randomPageBtn3">Sortear Carta</button>
-<p>Acerte qual é o versículo ou livro da Bíblia</p>
-<canvas id="pdfCanvas3"></canvas>
-<br><hr>
-
-<script>
-    const url3 = 'BIBLIA.pdf'; // URL do PDF
-    let pdfDoc = null;
-    const canvas = document.getElementById('pdfCanvas');
-    const ctx = canvas.getContext('2d');
-
-    // Carregar o PDF
-    pdfjsLib.getDocument(url3).promise.then(function (pdf) {
-        pdfDoc = pdf;
-    });
-
-    // Função para sortear uma página aleatória
-    function randomPage() {
-        if (pdfDoc) {
-            const totalPages = pdfDoc.numPages;
-            const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
-
-            // Renderizar a página sorteada
-            pdfDoc.getPage(randomPageNumber).then(function (page) {
-                const viewport = page.getViewport({ scale: 1.5 });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                const renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
-                page.render(renderContext);
-            });
-        }
-    }
-
-    // Botão de sorteio
-    document.getElementById('randomPageBtn3').addEventListener('click', randomPage);
-</script>
-
 
 </body>
 </html>
