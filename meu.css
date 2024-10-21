@@ -31,6 +31,18 @@ h1 {
     background-color: white;
 }
 
+#pdfCanvas2 {
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+#pdfCanvas3 {
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
 /* Estilo do botão */
 button {
     background-color: #4a90e2;
@@ -59,6 +71,12 @@ button:active {
 /* Tornando o layout responsivo */
 @media (max-width: 768px) {
     #pdfCanvas {
+        max-width: 100%;
+    }
+    #pdfCanvas2 {
+        max-width: 100%;
+    }
+    #pdfCanvas3 {
         max-width: 100%;
     }
 
