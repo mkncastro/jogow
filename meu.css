@@ -75,7 +75,7 @@ button:active {
 
 /* Tornando o layout responsivo */
 @media (max-width: 768px) {
-    #pdfCanvas {
+    #pdfCanvas1 {
         max-width: 100%;
     }
     #pdfCanvas2 {
