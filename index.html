@@ -8,9 +8,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
 </head>
 <body>
-    <h1>Baralho de Pessoas</h1>
+    <h1>Baralho de Dicas</h1>
     <button id="randomPageBtn">Sortear Carta</button>
+    <p></p>
     <canvas id="pdfCanvas"></canvas>
+    <br><hr>
   
     <script>
         const url = 'PESSOAS.pdf'; // URL do PDF
@@ -47,5 +49,92 @@
         // Botão de sorteio
         document.getElementById('randomPageBtn').addEventListener('click', randomPage);
     </script>
+
+<h1>Baralho para Mímica</h1>
+<button id="randomPageBtn">Sortear Carta</button>
+<p></p>
+<canvas id="pdfCanvas"></canvas>
+<br><hr>
+
+<script>
+    const url = 'MIMICA.pdf'; // URL do PDF
+    let pdfDoc = null;
+    const canvas = document.getElementById('pdfCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Carregar o PDF
+    pdfjsLib.getDocument(url).promise.then(function (pdf) {
+        pdfDoc = pdf;
+    });
+
+    // Função para sortear uma página aleatória
+    function randomPage() {
+        if (pdfDoc) {
+            const totalPages = pdfDoc.numPages;
+            const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
+
+            // Renderizar a página sorteada
+            pdfDoc.getPage(randomPageNumber).then(function (page) {
+                const viewport = page.getViewport({ scale: 1.5 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                page.render(renderContext);
+            });
+        }
+    }
+
+    // Botão de sorteio
+    document.getElementById('randomPageBtn').addEventListener('click', randomPage);
+</script>
+
+
+<h1>Baralho Bíblico</h1>
+<button id="randomPageBtn">Sortear Carta</button>
+<p></p>
+<canvas id="pdfCanvas"></canvas>
+<br><hr>
+
+<script>
+    const url = 'BIBLIA.pdf'; // URL do PDF
+    let pdfDoc = null;
+    const canvas = document.getElementById('pdfCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Carregar o PDF
+    pdfjsLib.getDocument(url).promise.then(function (pdf) {
+        pdfDoc = pdf;
+    });
+
+    // Função para sortear uma página aleatória
+    function randomPage() {
+        if (pdfDoc) {
+            const totalPages = pdfDoc.numPages;
+            const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
+
+            // Renderizar a página sorteada
+            pdfDoc.getPage(randomPageNumber).then(function (page) {
+                const viewport = page.getViewport({ scale: 1.5 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                page.render(renderContext);
+            });
+        }
+    }
+
+    // Botão de sorteio
+    document.getElementById('randomPageBtn').addEventListener('click', randomPage);
+</script>
+
+
 </body>
 </html>
