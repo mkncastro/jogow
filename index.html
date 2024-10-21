@@ -14,6 +14,8 @@
 <h3>Acerte antes de acabar o tempo</h3>
 <div id="timer">60</div>
 <button onclick="iniciarContagem()">Iniciar Contagem</button>
+<button onclick="reiniciarContagem()">Reiniciar Contagem</button>
+
 
     <h1>Baralho de Dicas</h1>
     <button id="randomPageBtn1">Sortear Carta</button>
@@ -34,11 +36,19 @@
     <br><hr>
 
     <script>
-        let tempoRestante = 60; // Definir os 60 segundos
+  let tempoRestante = 60; // Definir os 60 segundos
+        let intervalo; // Variável para armazenar o intervalo
 
         function iniciarContagem() {
+            // Se já houver um intervalo, limpar antes de começar outro
+            if (intervalo) {
+                clearInterval(intervalo);
+            }
+            tempoRestante = 60; // Reiniciar o tempo para 60 segundos
+            document.getElementById("timer").textContent = tempoRestante;
+
             // Atualizar o timer a cada segundo (1000 ms)
-            const intervalo = setInterval(() => {
+            intervalo = setInterval(() => {
                 document.getElementById("timer").textContent = tempoRestante;
                 tempoRestante--; // Decrementa o tempo
 
@@ -50,6 +60,15 @@
                 }
             }, 1000); // A cada 1000ms (1 segundo)
         }
+
+        function reiniciarContagem() {
+            // Limpar o intervalo existente e reiniciar a contagem
+            clearInterval(intervalo);
+            iniciarContagem();
+        }
+
+
+        
         // Função para carregar e sortear página aleatória de um PDF
         function loadAndRandomPage(pdfUrl, canvasId) {
             let pdfDoc = null;
