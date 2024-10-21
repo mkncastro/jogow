@@ -57,14 +57,14 @@
 <h1>Baralho para Mímica</h1>
 <button id="randomPageBtn2">Sortear Carta</button>
 <p>Descubra o que tem na Bíblia por meio de mímica</p>
-<canvas id="pdfCanvas2"></canvas>
+<canvas id="pdfCanvas"></canvas>
 <br><hr>
 
 <script>
     const url2 = 'MIMICA.pdf'; // URL do PDF
     let pdfDoc = null;
-    const canvas2 = document.getElementById('pdfCanvas2');
-    const ctx2 = canvas2.getContext('2d');
+    const canvas = document.getElementById('pdfCanvas');
+    const ctx = canvas2.getContext('2d');
 
     // Carregar o PDF
     pdfjsLib.getDocument(url2).promise.then(function (pdf) {
@@ -80,11 +80,11 @@
             // Renderizar a página sorteada
             pdfDoc.getPage(randomPageNumber).then(function (page) {
                 const viewport = page.getViewport({ scale: 1.5 });
-                canvas2.height = viewport.height;
-                canvas2.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
 
                 const renderContext = {
-                    canvasContext: ctx2,
+                    canvasContext: ctx,
                     viewport: viewport
                 };
                 page.render(renderContext);
@@ -106,8 +106,8 @@
 <script>
     const url3 = 'BIBLIA.pdf'; // URL do PDF
     let pdfDoc = null;
-    const canvas3 = document.getElementById('pdfCanvas');
-    const ctx3 = canvas3.getContext('2d');
+    const canvas = document.getElementById('pdfCanvas');
+    const ctx = canvas.getContext('2d');
 
     // Carregar o PDF
     pdfjsLib.getDocument(url3).promise.then(function (pdf) {
@@ -123,11 +123,11 @@
             // Renderizar a página sorteada
             pdfDoc.getPage(randomPageNumber).then(function (page) {
                 const viewport = page.getViewport({ scale: 1.5 });
-                canvas3.height = viewport.height;
-                canvas3.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
 
                 const renderContext = {
-                    canvasContext: ctx3,
+                    canvasContext: ctx,
                     viewport: viewport
                 };
                 page.render(renderContext);
