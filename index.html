@@ -62,23 +62,23 @@
 
 <script>
     const url2 = 'MIMICA.pdf'; // URL do PDF
-    let pdfDoc = null;
+    let pdfDoc2 = null;
     const canvas = document.getElementById('pdfCanvas');
     const ctx = canvas2.getContext('2d');
 
     // Carregar o PDF
     pdfjsLib.getDocument(url2).promise.then(function (pdf) {
-        pdfDoc = pdf;
+        pdfDoc2 = pdf;
     });
 
     // Função para sortear uma página aleatória
     function randomPage() {
-        if (pdfDoc) {
-            const totalPages = pdfDoc.numPages;
+        if (pdfDoc2) {
+            const totalPages = pdfDoc2.numPages;
             const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
 
             // Renderizar a página sorteada
-            pdfDoc.getPage(randomPageNumber).then(function (page) {
+            pdfDoc2.getPage(randomPageNumber).then(function (page) {
                 const viewport = page.getViewport({ scale: 1.5 });
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
