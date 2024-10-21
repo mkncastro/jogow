@@ -11,6 +11,10 @@
 <body>
 <picture><img class="icon" src="jogow.png"></picture>
 
+<h1>Acerte antes de acabar o tempo</h1>
+<div id="timer">60s</div>
+<button onclick="iniciarContagem()">Iniciar Contagem</button>
+
     <h1>Baralho de Dicas</h1>
     <button id="randomPageBtn1">Sortear Carta</button>
     <p>Descubra quem é a pessoa com uma, duas ou três dicas (inclua 3 dicas sobre alguém da congregação)</p>
@@ -30,6 +34,22 @@
     <br><hr>
 
     <script>
+        let tempoRestante = 60; // Definir os 60 segundos
+
+        function iniciarContagem() {
+            // Atualizar o timer a cada segundo (1000 ms)
+            const intervalo = setInterval(() => {
+                document.getElementById("timer").textContent = tempoRestante;
+                tempoRestante--; // Decrementa o tempo
+
+                // Verificar se o tempo chegou a 0
+                if (tempoRestante < 0) {
+                    clearInterval(intervalo); // Parar o intervalo
+                    document.getElementById("timer").textContent = "Tempo esgotado!";
+                    console.log("Tempo finalizado!");
+                }
+            }, 1000); // A cada 1000ms (1 segundo)
+        }
         // Função para carregar e sortear página aleatória de um PDF
         function loadAndRandomPage(pdfUrl, canvasId) {
             let pdfDoc = null;
