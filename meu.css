@@ -15,6 +15,11 @@ h1 {
     margin-top: 20px;
 }
 
+.timer {
+    font-size: large;
+    font-weight: bolder;
+}
+
 /* Estilo para centralizar o PDF e o botão */
 .pdf-container {
     display: flex;
