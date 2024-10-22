@@ -48,6 +48,18 @@ div#timer {
     background-color: white;
 }
 
+#pdfCanvas4 {
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+#pdfCanvas5 {
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
 /* Estilo do botão */
 button {
     background-color: #4a90e2;
