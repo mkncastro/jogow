@@ -11,32 +11,73 @@
 <body>
 <picture><img class="icon" src="jogow.png"></picture>
 
+<h2>Sortear Carta de um Baralho</h2>
+<p id="carta">Clique no botão para sortear uma carta</p>
+<button id="botaoSortear">Sortear Carta</button>
+
+
 <h3>Acerte antes de acabar o tempo</h3>
-<div id="timer">60</div>
+<div id="timer">30</div>
 <!-- <button onclick="iniciarContagem()">Iniciar Contagem</button> -->
 <button id="btn" onclick="reiniciarContagem()">Iniciar Contagem</button>
 <br><hr>
 
-    <h1>Baralho de Dicas</h1>
+
+    <h1>Baralho Bíblico</h1>
     <button id="randomPageBtn1">Sortear Carta</button>
-    <p>Descubra quem é a pessoa com até 3 dicas <br>(inclua dicas sobre alguém da congregação)</p>
+    <p>Acerte qual é o versículo ou livro da Bíblia</p>
     <canvas id="pdfCanvas1"></canvas>
     <br><hr>
 
-    <h1>Baralho para Mímica</h1>
+    <h1>Baralho sobre a Organização (od/kr)</h1>
     <button id="randomPageBtn2">Sortear Carta</button>
-    <p>Descubra o que tem na Bíblia por meio de mímica</p>
+    <p>Acerte verdadeiro ou falso sobre a organização ou das reuniões</p>
     <canvas id="pdfCanvas2"></canvas>
     <br><hr>
 
-    <h1>Baralho Bíblico</h1>
+    <h1>Baralho de Dicas</h1>
     <button id="randomPageBtn3">Sortear Carta</button>
-    <p>Acerte qual é o versículo ou livro da Bíblia</p>
+    <p>Descubra quem é a pessoa com até 3 dicas <br>(inclua dicas sobre alguém da congregação)</p>
     <canvas id="pdfCanvas3"></canvas>
     <br><hr>
 
+    <h1>Baralho para Mímica</h1>
+    <button id="randomPageBtn4">Sortear Carta</button>
+    <p>Descubra o que tem na Bíblia por meio de mímica</p>
+    <canvas id="pdfCanvas4"></canvas>
+    <br><hr>
+
+    <h1>Baralho da Sala B</h1>
+    <button id="randomPageBtn5">Sortear Carta</button>
+    <p>Os anciãos querem falar sobre o que aconteceu</p>
+    <canvas id="pdfCanvas5"></canvas>
+    <br><hr>
+  
+
     <script>
-  let tempoRestante = 60; // Definir os 60 segundos
+
+        // Definir os naipes e valores
+        const valores = ['Bíblia 1 casa', 'Organização 2 casas', 'Pessoas 3 casas', 'Mímica 4 casas', 'Sala B'];
+
+        // Criar o baralho
+        const baralho = [];
+            for (let valor of valores) {
+                baralho.push(`${valor}`);
+        }
+
+        // Função para sortear uma carta
+        function sortearCarta() {
+            const indiceAleatorio = Math.floor(Math.random() * baralho.length);
+            return baralho[indiceAleatorio];
+        }
+
+        // Adicionar evento ao botão para sortear a carta quando clicado
+        document.getElementById('botaoSortear').addEventListener('click', function() {
+            const cartaSorteada = sortearCarta();
+            document.getElementById('carta').innerText = `Carta sorteada: ${cartaSorteada}`;
+        });
+
+  let tempoRestante = 30; // Definir os 30 segundos
         let intervalo; // Variável para armazenar o intervalo
 
         function iniciarContagem() {
@@ -44,7 +85,7 @@
             if (intervalo) {
                 clearInterval(intervalo);
             }
-            tempoRestante = 60; // Reiniciar o tempo para 60 segundos
+            tempoRestante = 30; // Reiniciar o tempo para 30 segundos
             document.getElementById("timer").textContent = tempoRestante;
 
             // Atualizar o timer a cada segundo (1000 ms)
@@ -108,12 +149,21 @@
         const randomPage1 = loadAndRandomPage('PESSOAS.pdf', 'pdfCanvas1');
         const randomPage2 = loadAndRandomPage('MIMICA.pdf', 'pdfCanvas2');
         const randomPage3 = loadAndRandomPage('BIBLIA.pdf', 'pdfCanvas3');
+        const randomPage4 = loadAndRandomPage('ORGANIZACAO.pdf', 'pdfCanvas4');
+        const randomPage5 = loadAndRandomPage('SALAB.pdf', 'pdfCanvas5');
+
 
         // Botões de sorteio
         document.getElementById('randomPageBtn1').addEventListener('click', randomPage1);
         document.getElementById('randomPageBtn2').addEventListener('click', randomPage2);
         document.getElementById('randomPageBtn3').addEventListener('click', randomPage3);
+        document.getElementById('randomPageBtn4').addEventListener('click', randomPage4);
+        document.getElementById('randomPageBtn5').addEventListener('click', randomPage5);
+
     </script>
 
+<footer>
+    <p><a href="imprimir-JogoW.pdf" download="MeuArquivo.pdf">Clique aqui para baixar o PDF com as regras do jogow ou para imprimir as peças</a></p>
+</footer>
 </body>
 </html>

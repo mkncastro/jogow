@@ -84,6 +84,12 @@ button:active {
     #pdfCanvas3 {
         max-width: 100%;
     }
+    #pdfCanvas4 {
+        max-width: 100%;
+    }
+    #pdfCanvas5 {
+        max-width: 100%;
+    }
 
     button {
         padding: 12px 25px;
